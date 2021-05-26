@@ -59,53 +59,43 @@ class ParseOptTest < Test::Unit::TestCase
   end
 
   def test_usage
-    opts = ParseOpt.new
-    opts.on('b', 'bool')
     expected = <<~EOF
     usage: 
         -b, --bool
     EOF
-    actual = capture { opts.usage }
-    assert_equal(expected, actual)
+    run_usage(['b', 'bool'], expected) { |opts| opts.usage }
   end
 
   def test_help
-    opts = ParseOpt.new
-    opts.on('b', 'bool')
     expected = <<~EOF
     usage: 
         -b, --bool
     EOF
-    actual = capture do
+    run_usage(['b', 'bool'], expected) do |opts|
       begin
         opts.parse(%w[-h])
       rescue SystemExit
       end
     end
-    assert_equal(expected, actual)
   end
 
   def test_custom_usage
-    opts = ParseOpt.new
-    opts.usage = 'test script'
-    opts.on('b', 'bool')
     expected = <<~EOF
     usage: test script
         -b, --bool
     EOF
-    actual = capture { opts.usage }
-    assert_equal(expected, actual)
+    run_usage(['b', 'bool'], expected) do |opts|
+      opts.usage = 'test script'
+      opts.usage
+    end
   end
 
   def test_option_help
-    opts = ParseOpt.new
-    opts.on('b', 'bool', 'Boolean')
     expected = <<~EOF
     usage: 
         -b, --bool            Boolean
     EOF
-    actual = capture { opts.usage }
-    assert_equal(expected, actual)
+    run_usage(['b', 'bool', 'Boolean'], expected) { |opts| opts.usage }
   end
 
   private
@@ -114,6 +104,12 @@ class ParseOptTest < Test::Unit::TestCase
     opts = ParseOpt.new
     opts.on(*opt) { |v| yield v }
     assert_equal(result, opts.parse(args))
+  end
+
+  def run_usage(opt, expected)
+    opts = ParseOpt.new
+    opts.on(*opt)
+    assert_equal(expected, capture { yield opts })
   end
 
   def capture
