@@ -19,6 +19,16 @@ class ParseOptTest < Test::Unit::TestCase
     run_opts('b', %w[-x], %w[-x])
   end
 
+  def test_other
+    run_opts('b', %w[foo], %w[foo])
+  end
+
+  def test_other_then_bool
+    bool = false
+    run_opts('b', %w[foo -b], %w[foo]) { |v| bool = v }
+    assert(bool)
+  end
+
   private
 
   def run_opts(opt, args, result = [])
