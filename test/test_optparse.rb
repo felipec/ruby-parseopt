@@ -69,6 +69,22 @@ class ParseOptTest < Test::Unit::TestCase
     assert_equal(expected, actual)
   end
 
+  def test_help
+    opts = ParseOpt.new
+    opts.on('b', 'bool')
+    expected = <<~EOF
+    usage:
+        -b, --bool
+    EOF
+    actual = capture do
+      begin
+        opts.parse(%w[-h])
+      rescue SystemExit
+      end
+    end
+    assert_equal(expected, actual)
+  end
+
   private
 
   def run_opts(opt, args, result = [])

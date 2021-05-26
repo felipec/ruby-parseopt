@@ -25,6 +25,10 @@ class ParseOpt
   end
 
   def parse(args = ARGV)
+    if args.member?('-h') or args.member?('--help')
+      usage
+      exit 0
+    end
     seen_dash = false
     args.delete_if do |cur|
       opt = val = nil
