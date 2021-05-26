@@ -29,6 +29,10 @@ class ParseOptTest < Test::Unit::TestCase
     assert(bool)
   end
 
+  def test_double_dash
+    run_opts('b', %w[-- -b], %w[-b])
+  end
+
   private
 
   def run_opts(opt, args, result = [])
