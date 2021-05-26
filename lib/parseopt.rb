@@ -44,4 +44,14 @@ class ParseOpt
     end
   end
 
+  def usage
+    puts 'usage:'
+    @list.values.uniq.each do |opt|
+      s = '    '
+      s << ''
+      s << [opt.short&.prepend('-'), opt.long&.prepend('--')].compact.join(', ')
+      puts s
+    end
+  end
+
 end

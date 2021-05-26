@@ -1,5 +1,6 @@
 require 'test/unit'
 require 'parseopt'
+require 'stringio'
 
 class ParseOptTest < Test::Unit::TestCase
 
@@ -57,12 +58,32 @@ class ParseOptTest < Test::Unit::TestCase
     assert(!bool)
   end
 
+  def test_usage
+    opts = ParseOpt.new
+    opts.on('b', 'bool')
+    expected = <<~EOF
+    usage:
+        -b, --bool
+    EOF
+    actual = capture { opts.usage }
+    assert_equal(expected, actual)
+  end
+
   private
 
   def run_opts(opt, args, result = [])
     opts = ParseOpt.new
     opts.on(*opt) { |v| yield v }
     assert_equal(result, opts.parse(args))
+  end
+
+  def capture
+    stdout_save = $stdout
+    $stdout = StringIO.new
+    yield
+    $stdout.string
+  ensure
+    $stdout = stdout_save
   end
 
 end
