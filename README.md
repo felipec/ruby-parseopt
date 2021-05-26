@@ -1,6 +1,8 @@
 A ver simple option parser.
 
 ```ruby
+require 'parseopt'
+
 opts = ParseOpt.new
 opts.usage = 'my command'
 
@@ -21,3 +23,18 @@ end
 
 opts.parse
 ```
+
+Running with `--help` gives:
+
+```
+usage: my command
+    -b
+    -s, --string
+    -n, --number          Number
+```
+
+## Installation
+
+Simply install the gem:
+
+    gem install parseopt
