@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'parseopt'
-  spec.version = '0.1.0'
+  spec.version = '0.2.0'
   spec.author = 'Felipe Contreras'
   spec.email = 'felipe.contreras@gmail.com'
   spec.summary = 'Option parser'
