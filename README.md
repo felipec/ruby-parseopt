@@ -1,5 +1,8 @@
 A very simple option parser.
 
+It uses as inspiration Git's internal option parser code, and Ruby's
+OptionParser.
+
 ```ruby
 require 'parseopt'
 
