@@ -10,7 +10,7 @@ class ParseOpt
     end
 
     def call(v)
-      @block.call(v)
+      @block.call(v) || true
     end
   end
 
@@ -40,10 +40,7 @@ class ParseOpt
         opt = @list[$1]
         val = $2 || true
       end
-      if opt
-        opt.call(val)
-        true
-      end
+      opt&.call(val)
     end
   end
 
