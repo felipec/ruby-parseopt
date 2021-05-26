@@ -62,7 +62,7 @@ class ParseOptTest < Test::Unit::TestCase
     opts = ParseOpt.new
     opts.on('b', 'bool')
     expected = <<~EOF
-    usage:
+    usage: 
         -b, --bool
     EOF
     actual = capture { opts.usage }
@@ -73,7 +73,7 @@ class ParseOptTest < Test::Unit::TestCase
     opts = ParseOpt.new
     opts.on('b', 'bool')
     expected = <<~EOF
-    usage:
+    usage: 
         -b, --bool
     EOF
     actual = capture do
@@ -82,6 +82,18 @@ class ParseOptTest < Test::Unit::TestCase
       rescue SystemExit
       end
     end
+    assert_equal(expected, actual)
+  end
+
+  def test_custom_usage
+    opts = ParseOpt.new
+    opts.usage = 'test script'
+    opts.on('b', 'bool')
+    expected = <<~EOF
+    usage: test script
+        -b, --bool
+    EOF
+    actual = capture { opts.usage }
     assert_equal(expected, actual)
   end
 

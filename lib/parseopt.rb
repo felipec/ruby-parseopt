@@ -1,4 +1,5 @@
 class ParseOpt
+  attr_writer :usage
 
   class Option
     attr_reader :short, :long
@@ -49,7 +50,7 @@ class ParseOpt
   end
 
   def usage
-    puts 'usage:'
+    puts 'usage: %s' % @usage
     @list.values.uniq.each do |opt|
       s = '    '
       s << ''
