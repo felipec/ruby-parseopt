@@ -97,6 +97,17 @@ class ParseOptTest < Test::Unit::TestCase
     assert_equal(expected, actual)
   end
 
+  def test_option_help
+    opts = ParseOpt.new
+    opts.on('b', 'bool', 'Boolean')
+    expected = <<~EOF
+    usage: 
+        -b, --bool            Boolean
+    EOF
+    actual = capture { opts.usage }
+    assert_equal(expected, actual)
+  end
+
   private
 
   def run_opts(opt, args, result = [])

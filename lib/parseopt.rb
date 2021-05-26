@@ -2,12 +2,13 @@ class ParseOpt
   attr_writer :usage
 
   class Option
-    attr_reader :short, :long
+    attr_reader :short, :long, :help
 
-    def initialize(short, long, &block)
+    def initialize(short, long, help, &block)
       @block = block
       @short = short
       @long = long
+      @help = help
     end
 
     def call(v)
@@ -19,8 +20,8 @@ class ParseOpt
     @list = {}
   end
 
-  def on(short, long = nil, &block)
-    opt = Option.new(short, long, &block)
+  def on(short, long = nil, help = nil, &block)
+    opt = Option.new(short, long, help, &block)
     @list[short] = opt if short
     @list[long] = opt if long
   end
@@ -55,6 +56,8 @@ class ParseOpt
       s = '    '
       s << ''
       s << [opt.short&.prepend('-'), opt.long&.prepend('--')].compact.join(', ')
+      s << ''
+      s << '%*s%s' % [26 - s.size, '', opt.help] if opt.help
       puts s
     end
   end
