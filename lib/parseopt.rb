@@ -15,18 +15,36 @@ class ParseOpt
   end
   private_constant :Option
 
+  # Creates a new instance.
+  #
+  # Yields itself if called with a block.
+  #
+  # @param [String] usage usage banner.
+  #
+  # @yieldparam [ParseOpt] self Option parser object
   def initialize(usage = nil)
     @list = {}
     @usage = usage
     yield self if block_given?
   end
 
+  # Creates an option.
+  #
+  # The block is called with the value when the option is found.
+  #
+  # @example Simple boolean
+  #   opts.on('b') { $bool = true }
+  # @example Simple string with value
+  #   opts.on('s', 'string') { |value| $string = value }
+  #
+  # @yieldparam value value parsed
   def on(short, long = nil, help = nil, &block)
     opt = Option.new(short, long, help, &block)
     @list[short] = opt if short
     @list[long] = opt if long
   end
 
+  # Parses all the command line arguments
   def parse(args = ARGV)
     if args.member?('-h') or args.member?('--help')
       usage
@@ -51,10 +69,12 @@ class ParseOpt
     end
   end
 
+  # Sets the usage banner
   def usage=(value)
     @usage = value
   end
 
+  # Generates the usage output (similar to `--help`)
   def usage
     puts 'usage: %s' % @usage
     @list.values.uniq.each do |opt|
