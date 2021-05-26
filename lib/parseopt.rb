@@ -17,9 +17,9 @@ class ParseOpt
       when '--'
         seen_dash = true
         next true
-      when /^-([^-])$/
+      when /^-([^-])(.+)?$/
         opt = @list[$1]
-        val = true
+        val = $2 || true
       end
       opt&.call(val)
     end

@@ -33,6 +33,12 @@ class ParseOptTest < Test::Unit::TestCase
     run_opts('b', %w[-- -b], %w[-b])
   end
 
+  def test_value
+    str = 'default'
+    run_opts('s', %w[-sfoo]) { |v| str = v }
+    assert_equal('foo', str)
+  end
+
   private
 
   def run_opts(opt, args, result = [])
