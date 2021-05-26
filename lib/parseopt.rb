@@ -16,8 +16,10 @@ class ParseOpt
     end
   end
 
-  def initialize
+  def initialize(usage = nil)
     @list = {}
+    @usage = usage
+    yield self if block_given?
   end
 
   def on(short, long = nil, help = nil, &block)

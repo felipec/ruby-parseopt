@@ -3,8 +3,7 @@ A very simple option parser.
 ```ruby
 require 'parseopt'
 
-opts = ParseOpt.new
-opts.usage = 'my command'
+opts = ParseOpt.new('my command')
 
 # only short
 opts.on('b') do |v|

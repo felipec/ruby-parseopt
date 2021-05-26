@@ -58,6 +58,14 @@ class ParseOptTest < Test::Unit::TestCase
     assert(!bool)
   end
 
+  def test_init
+    bool = false
+    ParseOpt.new('test script') do |opts|
+      opts.on('b', 'bool') { |v| bool = v }
+    end.parse(%w[-b])
+    assert(bool)
+  end
+
   def test_usage
     expected = <<~EOF
     usage: 
