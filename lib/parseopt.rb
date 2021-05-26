@@ -1,6 +1,4 @@
 class ParseOpt
-  attr_writer :usage
-
   class Option
     attr_reader :short, :long, :help
 
@@ -51,6 +49,10 @@ class ParseOpt
       end
       opt&.call(val)
     end
+  end
+
+  def usage=(value)
+    @usage = value
   end
 
   def usage
