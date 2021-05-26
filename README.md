@@ -1,4 +1,4 @@
-A ver simple option parser.
+A very simple option parser.
 
 ```ruby
 require 'parseopt'
