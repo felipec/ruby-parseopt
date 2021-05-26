@@ -39,11 +39,23 @@ class ParseOptTest < Test::Unit::TestCase
     assert_equal('foo', str)
   end
 
+  def test_long
+    bool = false
+    run_opts(['b', 'bool'], %w[--bool]) { |v| bool = v }
+    assert(bool)
+  end
+
+  def test_long_value
+    str = 'default'
+    run_opts(['s', 'string'], %w[--string=foo]) { |v| str = v }
+    assert_equal('foo', str)
+  end
+
   private
 
   def run_opts(opt, args, result = [])
     opts = ParseOpt.new
-    opts.on(opt) { |v| yield v }
+    opts.on(*opt) { |v| yield v }
     assert_equal(result, opts.parse(args))
   end
 

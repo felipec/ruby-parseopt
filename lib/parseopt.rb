@@ -4,8 +4,9 @@ class ParseOpt
     @list = {}
   end
 
-  def on(opt,  &block)
-    @list[opt] = block
+  def on(short, long = nil, &block)
+    @list[short] = block if short
+    @list[long] = block if long
   end
 
   def parse(args = ARGV)
@@ -17,7 +18,7 @@ class ParseOpt
       when '--'
         seen_dash = true
         next true
-      when /^-([^-])(.+)?$/
+      when /^-([^-])(.+)?$/, /^--(.+?)(?:=(.+))?$/
         opt = @list[$1]
         val = $2 || true
       end
