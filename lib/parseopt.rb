@@ -15,6 +15,7 @@ class ParseOpt
       @block.call(v) || true
     end
   end
+  private_constant :Option
 
   def initialize(usage = nil)
     @list = {}
