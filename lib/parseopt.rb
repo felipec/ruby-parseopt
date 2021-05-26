@@ -18,11 +18,17 @@ class ParseOpt
       when '--'
         seen_dash = true
         next true
+      when /^--no-(.+)$/
+        opt = @list[$1]
+        val = false
       when /^-([^-])(.+)?$/, /^--(.+?)(?:=(.+))?$/
         opt = @list[$1]
         val = $2 || true
       end
-      opt&.call(val)
+      if opt
+        opt.call(val)
+        true
+      end
     end
   end
 
