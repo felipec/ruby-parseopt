@@ -1,12 +1,27 @@
 class ParseOpt
 
+  class Option
+    attr_reader :short, :long
+
+    def initialize(short, long, &block)
+      @block = block
+      @short = short
+      @long = long
+    end
+
+    def call(v)
+      @block.call(v)
+    end
+  end
+
   def initialize
     @list = {}
   end
 
   def on(short, long = nil, &block)
-    @list[short] = block if short
-    @list[long] = block if long
+    opt = Option.new(short, long, &block)
+    @list[short] = opt if short
+    @list[long] = opt if long
   end
 
   def parse(args = ARGV)
