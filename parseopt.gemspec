@@ -8,4 +8,6 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/felipec/ruby-parseopt'
   spec.files = %w[README.md Rakefile lib/parseopt.rb]
   spec.test_files = %w[test/test_optparse.rb]
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'test-unit'
 end
