@@ -15,6 +15,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
     - name: Build gem
-      run: gem build
+      run: gem build parseopt.gemspec
     - name: Run tests
       run: rake
