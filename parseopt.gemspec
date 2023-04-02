@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.summary = 'A very simple option parser.'
   spec.license = 'GPL-2.0-only'
   spec.homepage = 'https://github.com/felipec/ruby-parseopt'
-  spec.files = %w[README.md Rakefile lib/parseopt.rb]
-  spec.test_files = %w[test/test_optparse.rb]
+  spec.files = %w[lib/parseopt.rb]
+  spec.extra_rdoc_files = %w[README.md]
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'test-unit'
 end
