@@ -78,12 +78,9 @@ class ParseOpt
   def usage
     puts 'usage: %s' % @usage
     @list.values.uniq.each do |opt|
-      s = '    '
-      s << ''
-      s << [opt.short&.prepend('-'), opt.long&.prepend('--')].compact.join(', ')
-      s << ''
-      s << '%*s%s' % [26 - s.size, '', opt.help] if opt.help
-      puts s
+      opts = { '-' => opt.short, '--' => opt.long }.compact.map { |p,e| p + e }
+      s = '    ' + opts.join(', ')
+      puts opt.help ? '%*s%s' % [-26, s, opt.help] : s
     end
   end
 
