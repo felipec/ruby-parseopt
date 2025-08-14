@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/felipec/ruby-parseopt'
   spec.files = %w[lib/parseopt.rb]
   spec.extra_rdoc_files = %w[README.md]
+  spec.required_ruby_version = '>= 3'
   spec.add_development_dependency 'rake', '~> 13'
   spec.add_development_dependency 'test-unit', '~> 3'
 end
